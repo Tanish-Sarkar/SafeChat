@@ -35,24 +35,22 @@ To build a **secure, fast, and privacy-respecting** chat platform that enables s
 
 2. **Dashboard / Room Selection**
    * User will see 3 pages at the navigation bar `Home | Chats | Rules`
-   * On going to the 
-   * View public rooms or create a new private room.
-   * Private rooms generate a **QR code** and **invite link** for sharing.
+   * On going to the Chat tab you will find 2 options `Public rooms | Private rooms`
+   * On clicking on Private rooms generate a **QR code** and **invite link** for sharing.
+      * Everytime you enter any chat room either public or private a pop-up will come and the user as to name a in-chat name if the user doesn't enter any name then the system will assign the a unique name by itself 
 
 3. **Chat Interface**
-
    * Real-time messaging powered by **SignalR**.
    * Messages appear instantly without refreshing the page.
    * Typing indicators show when someone is composing a message.
 
 4. **Message Auto-Deletion**
-
-   * Every 5 minutes, the system checks for messages older than 5 minutes and **automatically removes them**.
+   * Every 1 minutes, the system checks for messages older than 5 minutes and **automatically removes them**.
 
 5. **User Exit / Logout**
-
    * Users can log out anytime.
    * All their messages will naturally disappear when they reach the 5-minute limit.
+   * If it's a private room and the room gets empty the room will get automaticaly deleted.
 
 ---
 
@@ -67,7 +65,7 @@ To build a **secure, fast, and privacy-respecting** chat platform that enables s
 
 * **JavaScript** — For chat functionality and UI interactions.
 * **SignalR JavaScript Client** — To connect to the SignalR hub.
-* **HTML + CSS** — For UI structure and styling.
+* **HTML + CSS** — For UI structure and styling.  (.apsx file typically)
 
 #### **Database**
 
@@ -78,7 +76,7 @@ To build a **secure, fast, and privacy-respecting** chat platform that enables s
 * **QR Code Generator Library** — To create QR codes for private room invites.
 * **Entity Framework** — For database operations.
 * **GitHub** — For version control.
-* **Deployment** — Azure or other hosting platforms.
+* **Deployment** — Render.
 
 ---
 
@@ -94,13 +92,7 @@ To build a **secure, fast, and privacy-respecting** chat platform that enables s
 
 ---
 
-### 8. **System Architecture**
-
-*(Here you’ll insert your Excalidraw diagram — showing User → Web App → SignalR Hub → Database → Auto-delete process.)*
-
----
-
-### 9. **Future Scope**
+### 8. **Future Scope**
 
 * End-to-end encryption for private messages
 * Support for file sharing
@@ -109,5 +101,5 @@ To build a **secure, fast, and privacy-respecting** chat platform that enables s
 
 ---
 
-If you want, I can now prepare this as a **clean markdown file** so you can just drop it into your repo and share it with your teammates.
-Do you want me to make that file now?
+### 9. **System Architecture and Schema design**
+### 10. **Git instructions**
