@@ -9,4 +9,5 @@
    
   - All please make their own branchs we will merge the properly working functionality accordingly
     #
-    [Project Overview](./Project-Overview.md) 
+    * [Project Overview](./Project-Overview.md)
+    * [System Architecture and Schema design](./Architecture.md)
