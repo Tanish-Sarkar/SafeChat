@@ -101,5 +101,5 @@ To build a **secure, fast, and privacy-respecting** chat platform that enables s
 
 ---
 
-### 9. **System Architecture and Schema design**
-### 10. **Git instructions**
+### 9. [**System Architecture and Schema design**](./Architecture.md)
+### 10. [**Git instructions**](./Git-Versioning-Information.md)
