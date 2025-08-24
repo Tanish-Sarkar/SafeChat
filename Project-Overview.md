@@ -31,7 +31,6 @@ To build a **secure, fast, and privacy-respecting** chat platform that enables s
 1. **Login / Signup**
 
    * Users create an account or log in using a simple interface.
-   * If no username is provided during signup, the system auto-generates one.
 
 2. **Dashboard / Room Selection**
    * User will see 3 pages at the navigation bar `Home | Chats | Rules`
