@@ -11,7 +11,7 @@
     <a href="#screenshots">Screenshots</a> •
   </p>
 
-  ![SafeChat Banner](https://via.placeholder.com/800x200/667eea/ffffff?text=SafeChat+-+Privacy+First+Messaging)
+  ![SafeChat Banner](https://github.com/Tanish-Sarkar/SafeChat/blob/main/screenshots/safechat.png)
   
 </div>
 
@@ -174,13 +174,13 @@ Or press **F5** in Visual Studio.
 ## 📸 Screenshots
 
 ### Home Page
-![Home Page](https://via.placeholder.com/800x400/667eea/ffffff?text=Home+Page)
+![Home Page](https://github.com/Tanish-Sarkar/SafeChat/blob/main/screenshots/home.png)
 
 ### Chat Interface
-![Chat Interface](https://via.placeholder.com/800x400/764ba2/ffffff?text=Chat+Interface)
+![Chat Interface](https://github.com/Tanish-Sarkar/SafeChat/blob/main/screenshots/chat.png)
 
-### Private Room with QR Code
-![QR Code](https://via.placeholder.com/800x400/10b981/ffffff?text=QR+Code+Invite)
+### Policies
+![Rules](https://github.com/Tanish-Sarkar/SafeChat/blob/main/screenshots/rule.png)
 
 ---
 
