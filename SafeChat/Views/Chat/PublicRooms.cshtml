@@ -1,0 +1,42 @@
+﻿@model IEnumerable<SafeChat.Models.ChatRoom>
+
+@{
+    ViewData["Title"] = "Public Rooms";
+}
+
+<div class="container mt-4">
+    <h2>Public Chat Rooms</h2>
+    <p class="text-muted">Join any public room to start chatting</p>
+
+    <hr />
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="row">
+            @foreach (var room in Model)
+            {
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">@room.Name</h5>
+                            <p class="card-text text-muted">
+                                <small>Created: @room.CreatedAt.ToString("MMM dd, yyyy")</small>
+                            </p>
+                            <a href="@Url.Action("Room", "Chat", new { id = room.Id })" class="btn btn-primary">Join Room</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning">
+            <p>No public rooms available yet. Check back later!</p>
+        </div>
+    }
+
+    <div class="mt-4">
+        <a href="@Url.Action("Index", "Chat")" class="btn btn-secondary">← Back to Chat Home</a>
+    </div>
+</div>

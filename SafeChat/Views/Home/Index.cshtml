@@ -1,0 +1,132 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="hero-section text-center py-5" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; min-height: 500px; display: flex; align-items: center; justify-content: center;">
+    <div class="container">
+        <h1 class="display-1 fw-bold mb-4">SafeChat</h1>
+        <p class="lead fs-3 mb-4">Privacy-Focused, Real-Time Messaging</p>
+        <p class="fs-5 mb-5">Your messages. Your privacy. No permanent records.</p>
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            <a href="@Url.Action("Index", "Chat")" class="btn btn-light btn-lg px-5 py-3 me-3">
+                <i class="bi bi-chat-dots"></i> Open Chat
+            </a>
+        }
+        else
+        {
+            <a href="/Identity/Account/Register" class="btn btn-light btn-lg px-5 py-3 me-3">
+                <i class="bi bi-person-plus"></i> Get Started
+            </a>
+            <a href="/Identity/Account/Login" class="btn btn-outline-light btn-lg px-5 py-3">
+                <i class="bi bi-box-arrow-in-right"></i> Login
+            </a>
+        }
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="text-center mb-5">
+        <h2 class="display-5 fw-bold">Why Choose SafeChat?</h2>
+        <p class="text-muted">Built with privacy and simplicity in mind</p>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0 text-center p-4">
+                <div class="mb-3">
+                    <i class="bi bi-clock-history" style="font-size: 4rem; color: #667eea;"></i>
+                </div>
+                <h3 class="h4">Auto-Delete Messages</h3>
+                <p class="text-muted">All messages automatically disappear after 5 minutes. No permanent storage, no data retention.</p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0 text-center p-4">
+                <div class="mb-3">
+                    <i class="bi bi-lightning-charge" style="font-size: 4rem; color: #667eea;"></i>
+                </div>
+                <h3 class="h4">Real-Time Chat</h3>
+                <p class="text-muted">Instant messaging powered by SignalR. See messages appear in real-time without refreshing.</p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0 text-center p-4">
+                <div class="mb-3">
+                    <i class="bi bi-shield-check" style="font-size: 4rem; color: #667eea;"></i>
+                </div>
+                <h3 class="h4">Privacy First</h3>
+                <p class="text-muted">Use anonymous chat names. Your conversations are temporary and private by design.</p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0 text-center p-4">
+                <div class="mb-3">
+                    <i class="bi bi-globe" style="font-size: 4rem; color: #764ba2;"></i>
+                </div>
+                <h3 class="h4">Public Rooms</h3>
+                <p class="text-muted">Join themed chat rooms and connect with people who share your interests.</p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0 text-center p-4">
+                <div class="mb-3">
+                    <i class="bi bi-lock-fill" style="font-size: 4rem; color: #764ba2;"></i>
+                </div>
+                <h3 class="h4">Private Rooms</h3>
+                <p class="text-muted">Create invite-only rooms with QR codes. Perfect for team discussions and private groups.</p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0 text-center p-4">
+                <div class="mb-3">
+                    <i class="bi bi-trash" style="font-size: 4rem; color: #764ba2;"></i>
+                </div>
+                <h3 class="h4">No Clutter</h3>
+                <p class="text-muted">Empty private rooms auto-delete. Clean, minimal, and focused on what matters: conversations.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="bg-light py-5">
+    <div class="container text-center">
+        <h2 class="display-5 fw-bold mb-4">Ready to Start Chatting?</h2>
+        <p class="lead mb-4">Join SafeChat today and experience truly private, ephemeral messaging.</p>
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            <a href="@Url.Action("Index", "Chat")" class="btn btn-primary btn-lg px-5 py-3">
+                <i class="bi bi-chat-dots"></i> Go to Chat
+            </a>
+        }
+        else
+        {
+            <a href="/Identity/Account/Register" class="btn btn-primary btn-lg px-5 py-3">
+                <i class="bi bi-rocket-takeoff"></i> Sign Up Free
+            </a>
+        }
+    </div>
+</div>
+
+<style>
+    .hero-section {
+        border-radius: 0;
+        margin: -20px -15px 0 -15px;
+    }
+
+    .card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15) !important;
+    }
+</style>

@@ -1,0 +1,231 @@
+﻿@model SafeChat.Models.ChatRoom
+
+@{
+    ViewData["Title"] = "Chat Room";
+    var chatName = ViewBag.ChatName as string;
+    var roomId = ViewBag.RoomId;
+    var messages = ViewBag.Messages as List<SafeChat.Models.Message>;
+}
+
+<!-- Chat Name Modal (appears on first visit) -->
+@if (string.IsNullOrEmpty(chatName))
+{
+    <div class="modal fade" id="chatNameModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Choose Your Chat Name</h5>
+                </div>
+                <div class="modal-body">
+                    <form asp-action="SetChatName" asp-controller="Chat" method="post">
+                        <input type="hidden" name="roomId" value="@roomId" />
+                        <div class="mb-3">
+                            <label for="chatName" class="form-label">Enter your chat name (or leave blank for random name)</label>
+                            <input type="text" class="form-control" id="chatName" name="chatName" placeholder="e.g., Alice, Bob, User123" maxlength="20">
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Join Chat</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="container-fluid vh-100 d-flex flex-column">
+    <!-- Header -->
+    <div class="row bg-primary text-white py-3">
+        <div class="col">
+            <h4 class="mb-0">
+                @if (Model.IsPrivate)
+                {
+                    <i class="bi bi-lock-fill"></i>
+                }
+                else
+                {
+                    <i class="bi bi-globe"></i>
+                }
+                @Model.Name
+            </h4>
+            <small>Your name: <strong>@chatName</strong></small>
+        </div>
+        <div class="col-auto">
+            @if (Model.IsPrivate)
+            {
+                <button class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#inviteModal">
+                    <i class="bi bi-qr-code"></i> Invite
+                </button>
+            }
+            <a href="@Url.Action("Index", "Chat")" class="btn btn-light btn-sm">
+                <i class="bi bi-box-arrow-left"></i> Leave
+            </a>
+        </div>
+    </div>
+
+    <!-- Messages Area -->
+    <div class="row flex-grow-1 overflow-hidden">
+        <div class="col">
+            <div id="messagesList" class="p-3 overflow-auto h-100">
+                @if (messages != null && messages.Any())
+                {
+                    foreach (var msg in messages)
+                    {
+                        <div class="message mb-2">
+                            <strong>@msg.SenderName:</strong> @msg.Content
+                            <small class="text-muted">(@msg.Timestamp.ToString("HH:mm"))</small>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Typing Indicator -->
+    <div class="row">
+        <div class="col">
+            <div id="typingIndicator" class="text-muted small ps-3" style="height: 20px;"></div>
+        </div>
+    </div>
+
+    <!-- Message Input -->
+    <div class="row bg-light py-3">
+        <div class="col">
+            <div class="input-group">
+                <input type="text" id="messageInput" class="form-control" placeholder="Type a message..." />
+                <button class="btn btn-primary" id="sendButton">
+                    <i class="bi bi-send-fill"></i> Send
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Invite Modal (for private rooms) -->
+@if (Model.IsPrivate)
+{
+    <div class="modal fade" id="inviteModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Invite Others</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <h6>QR Code</h6>
+                    <img src="@Url.Action("GetQRCode", "Chat", new { roomId = Model.Id })" alt="QR Code" class="img-fluid mb-3" />
+
+                    <h6>Invite Link</h6>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="inviteLink"
+                               value="@Url.Action("JoinPrivate", "Chat", new { code = Model.InviteCode }, Context.Request.Scheme)" readonly />
+                        <button class="btn btn-outline-secondary" onclick="copyInviteLink()">
+                            <i class="bi bi-clipboard"></i> Copy
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.0/signalr.min.js"></script>
+    <script>
+        const roomId = @roomId;
+        const userName = "@chatName";
+
+        // Show modal if no chat name
+        @if (string.IsNullOrEmpty(chatName))
+        {
+                <text>
+                const modal = new bootstrap.Modal(document.getElementById('chatNameModal'));
+                modal.show();
+                </text>
+        }
+
+        // SignalR Connection
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/chatHub")
+            .build();
+
+        // Receive messages
+        connection.on("ReceiveMessage", (user, message, time) => {
+            const messagesList = document.getElementById("messagesList");
+            const div = document.createElement("div");
+            div.className = "message mb-2";
+            div.innerHTML = `<strong>${user}:</strong> ${message} <small class="text-muted">(${time})</small>`;
+            messagesList.appendChild(div);
+            messagesList.scrollTop = messagesList.scrollHeight;
+        });
+
+        // User joined notification
+        connection.on("UserJoined", (user) => {
+            const messagesList = document.getElementById("messagesList");
+            const div = document.createElement("div");
+            div.className = "text-muted text-center small my-2";
+            div.textContent = `${user} joined the chat`;
+            messagesList.appendChild(div);
+        });
+
+        // User left notification
+        connection.on("UserLeft", (user) => {
+            const messagesList = document.getElementById("messagesList");
+            const div = document.createElement("div");
+            div.className = "text-muted text-center small my-2";
+            div.textContent = `${user} left the chat`;
+            messagesList.appendChild(div);
+        });
+
+        // Typing indicator
+        connection.on("UserTyping", (user) => {
+            const indicator = document.getElementById("typingIndicator");
+            indicator.textContent = `${user} is typing...`;
+            setTimeout(() => { indicator.textContent = ""; }, 2000);
+        });
+
+        // Start connection
+        connection.start().then(() => {
+            console.log("Connected to chat");
+            connection.invoke("JoinRoom", roomId, userName);
+        }).catch(err => console.error(err));
+
+        // Send message
+        document.getElementById("sendButton").addEventListener("click", sendMessage);
+        document.getElementById("messageInput").addEventListener("keypress", (e) => {
+            if (e.key === "Enter") {
+                sendMessage();
+            }
+        });
+
+        function sendMessage() {
+            const input = document.getElementById("messageInput");
+            const message = input.value.trim();
+
+            if (message) {
+                connection.invoke("SendMessage", roomId, userName, message)
+                    .catch(err => console.error(err));
+                input.value = "";
+            }
+        }
+
+        // Typing notification
+        let typingTimeout;
+        document.getElementById("messageInput").addEventListener("input", () => {
+            clearTimeout(typingTimeout);
+            connection.invoke("NotifyTyping", roomId, userName);
+            typingTimeout = setTimeout(() => {}, 1000);
+        });
+
+        // Copy invite link
+        function copyInviteLink() {
+            const link = document.getElementById("inviteLink");
+            link.select();
+            document.execCommand("copy");
+            alert("Invite link copied!");
+        }
+
+        // Leave room on window close
+        window.addEventListener("beforeunload", () => {
+            connection.invoke("LeaveRoom", roomId, userName);
+        });
+    </script>
+}

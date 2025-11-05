@@ -1,0 +1,97 @@
+﻿@{
+    ViewData["Title"] = "Rules & Guidelines";
+}
+
+<div class="container mt-5">
+    <h1 class="display-4 mb-4">📜 SafeChat Rules & Guidelines</h1>
+    <p class="lead">Please read and follow these rules to ensure a safe and respectful environment for everyone.</p>
+
+    <hr class="my-4" />
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h4><i class="bi bi-shield-check"></i> Privacy & Security</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">🔒 <strong>Auto-Delete:</strong> All messages are automatically deleted after <strong>5 minutes</strong></li>
+                        <li class="list-group-item">🗑️ <strong>No Long-Term Storage:</strong> We do not store your chat history permanently</li>
+                        <li class="list-group-item">👤 <strong>Anonymous Chat Names:</strong> Use pseudonyms - you don't need to reveal your real identity</li>
+                        <li class="list-group-item">🚪 <strong>Private Rooms:</strong> Empty private rooms are automatically deleted after 10 minutes of inactivity</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card mb-4 shadow-sm">
+                <div class="card-header bg-success text-white">
+                    <h4><i class="bi bi-heart"></i> Respectful Communication</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">✅ Be kind and respectful to all users</li>
+                        <li class="list-group-item">✅ Use appropriate language at all times</li>
+                        <li class="list-group-item">✅ Welcome new users and make them feel included</li>
+                        <li class="list-group-item">❌ No harassment, bullying, or hate speech</li>
+                        <li class="list-group-item">❌ No discrimination based on race, gender, religion, or any other factor</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card mb-4 shadow-sm">
+                <div class="card-header bg-warning text-dark">
+                    <h4><i class="bi bi-exclamation-triangle"></i> Prohibited Content</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">🚫 No spam, advertisements, or self-promotion</li>
+                        <li class="list-group-item">🚫 No sharing of illegal content or activities</li>
+                        <li class="list-group-item">🚫 No sharing of personal information (yours or others')</li>
+                        <li class="list-group-item">🚫 No malicious links, phishing attempts, or scams</li>
+                        <li class="list-group-item">🚫 No explicit or inappropriate content</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card mb-4 shadow-sm">
+                <div class="card-header bg-info text-white">
+                    <h4><i class="bi bi-chat-dots"></i> Chat Etiquette</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">💬 Stay on topic in themed rooms (e.g., Tech Talk, Gaming Lounge)</li>
+                        <li class="list-group-item">⏰ Don't spam messages - give others a chance to respond</li>
+                        <li class="list-group-item">🎯 Use private rooms for sensitive or private conversations</li>
+                        <li class="list-group-item">🤝 If you disagree, do so respectfully and constructively</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card mb-4 shadow-sm">
+                <div class="card-header bg-danger text-white">
+                    <h4><i class="bi bi-x-circle"></i> Consequences</h4>
+                </div>
+                <div class="card-body">
+                    <p class="mb-2">Violations of these rules may result in:</p>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">⚠️ Warning from moderators</li>
+                        <li class="list-group-item">⏸️ Temporary suspension</li>
+                        <li class="list-group-item">🔨 Permanent ban from SafeChat</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="alert alert-primary" role="alert">
+                <h5><i class="bi bi-info-circle"></i> Remember</h5>
+                <p class="mb-0">SafeChat is built on trust and respect. By using this platform, you agree to follow these guidelines and help create a positive community for everyone. Enjoy your conversations! 💙</p>
+            </div>
+
+            <div class="text-center mt-4">
+                <a href="@Url.Action("Index", "Chat")" class="btn btn-primary btn-lg">
+                    <i class="bi bi-chat-left-text"></i> Start Chatting
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
