@@ -49,8 +49,14 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapControllerRoute(
+    name: "invite",
+    pattern: "join/{code}",
+    defaults: new { controller = "Chat", action = "JoinPrivate" });
+
+app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
 app.MapRazorPages();
 
 app.MapHub<SafeChat.Hubs.ChatHub>("/chatHub");

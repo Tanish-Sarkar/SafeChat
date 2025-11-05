@@ -69,9 +69,10 @@
                 {
                     foreach (var msg in messages)
                     {
+                        var istTime = TimeZoneInfo.ConvertTimeFromUtc(msg.Timestamp, TimeZoneInfo.FindSystemTimeZoneById("India Standard Time"));
                         <div class="message mb-2">
                             <strong>@msg.SenderName:</strong> @msg.Content
-                            <small class="text-muted">(@msg.Timestamp.ToString("HH:mm"))</small>
+                            <small class="text-muted">(@istTime.ToString("hh:mm tt"))</small>
                         </div>
                     }
                 }
@@ -116,7 +117,8 @@
                     <h6>Invite Link</h6>
                     <div class="input-group">
                         <input type="text" class="form-control" id="inviteLink"
-                               value="@Url.Action("JoinPrivate", "Chat", new { code = Model.InviteCode }, Context.Request.Scheme)" readonly />
+                               value="@(Context.Request.Scheme)://@(Context.Request.Host)/join/@Model.InviteCode" readonly />
+                        
                         <button class="btn btn-outline-secondary" onclick="copyInviteLink()">
                             <i class="bi bi-clipboard"></i> Copy
                         </button>

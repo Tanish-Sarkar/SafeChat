@@ -13,6 +13,25 @@ namespace SafeChat.Hubs
             _context = context;
         }
 
+        //public async Task SendMessage(int roomId, string userName, string message)
+        //{
+        //    // Save message to database
+        //    var newMessage = new Message
+        //    {
+        //        Content = message,
+        //        SenderName = userName,
+        //        ChatRoomId = roomId,
+        //        Timestamp = DateTime.UtcNow
+        //    };
+
+        //    _context.Messages.Add(newMessage);
+        //    await _context.SaveChangesAsync();
+
+        //    // Send message to all users in the room
+        //    await Clients.Group(roomId.ToString())
+        //        .SendAsync("ReceiveMessage", userName, message, newMessage.Timestamp.ToString("HH:mm"));
+        //}
+
         public async Task SendMessage(int roomId, string userName, string message)
         {
             // Save message to database
@@ -27,9 +46,15 @@ namespace SafeChat.Hubs
             _context.Messages.Add(newMessage);
             await _context.SaveChangesAsync();
 
+            // Convert UTC to IST (UTC + 5:30)
+            var istTime = TimeZoneInfo.ConvertTimeFromUtc(
+                newMessage.Timestamp,
+                TimeZoneInfo.FindSystemTimeZoneById("India Standard Time")
+            );
+
             // Send message to all users in the room
             await Clients.Group(roomId.ToString())
-                .SendAsync("ReceiveMessage", userName, message, newMessage.Timestamp.ToString("HH:mm"));
+                .SendAsync("ReceiveMessage", userName, message, istTime.ToString("hh:mm tt"));
         }
 
         public async Task JoinRoom(int roomId, string userName)
